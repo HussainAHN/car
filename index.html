@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>car</title>
+    <title>Broken Brakes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript"
             src = "simpleGame.js"></script>
@@ -19,7 +19,7 @@
         function Car(){ // car sprite and behavior. it should stick to the buttom and only move left and right
             raceCar = new Sprite(scene, "redball.png", 20, 20);
             raceCar.setSpeed(0);
-            raceCar.setPosition(115, 100);
+            raceCar.setPosition(115, 325);
             return raceCar;
 
 
@@ -28,11 +28,11 @@
         
         function init(){
             scene = new Scene();
-            scene.setSize(400, 700)
-            road = new Sprite(scene, "road.png", 500, 1074);
+            scene.setSize(1000, 400)
+            road = new Sprite(scene, "road.png", 1000, 1074);
             road.setSpeed(50);
             road.setMoveAngle(0);
-            road.setPosition(200, 350);
+            road.setPosition(500, 350);
             car = new Car();
             var joy = Joy();
             accel = new Accel();
