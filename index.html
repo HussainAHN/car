@@ -6,14 +6,17 @@
     <script type="text/javascript"
             src = "simpleGame.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <script type="text/javascript">
         var scene;
         var car;
         var road;
+        var virtKeys = true;
+
         function Car(){ // car sprite and behavior. it should stick to the buttom and only move left and right
             raceCar = new Sprite(scene, "redball.png", 20, 20);
             raceCar.setSpeed(0);
-            raceCar.setPosition(315, 400);
+            raceCar.setPosition(115, 100);
             return raceCar;
         } // end Car
         
@@ -21,27 +24,50 @@
             scene = new Scene();
             scene.setSize(629, 500)
             road = new Sprite(scene, "road.png", 629, 1074);
-            road.setSpeed(5);
+            road.setSpeed(50);
             road.setMoveAngle(0);
             road.setPosition(314, 537);
             output = document.getElementById("output");
             car = new Car();
+            var joy = Joy();
+
             scene.start();
         } // end init
-        
+
         function update(){
             scene.clear();
             road.update();
-            
-            newDY = accel.getAX();
+            checkKeys();
+            car.update();
+            newDx = accel.getAY();
             newDX *= -5;
             car.setDX(newDX);
-
-
             car.update();
-
+        
         } // end update
         
+            
+    function checkKeys(){
+        car.setDX(0);
+        car.setDY(0);
+        
+        if (keysDown[K_UP]){
+            car.setDY(-5);
+        }
+        if (keysDown[K_DOWN]){
+            car.setDY(5);
+        }
+        if (keysDown[K_LEFT]){
+            car.setDX(-10);
+        }
+        if (keysDown[K_RIGHT]){
+            car.setDX(10);
+        }
+                            }
+
+            
+           
+            
     </script>
 </head>
 <body onload = "init()">
