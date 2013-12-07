@@ -48,12 +48,11 @@
             
 
             newDX = accel.getAY();
-            newDY = accel.getAX();    
+            //newDY = accel.getAX();    
             newDX *= -5;
-            newDY *= -5;
-            
+            //newDY *= -5;
             car.setDX(newDX);
-            car.setDY(newDY);
+            //car.setDY(newDY);
             
             car.update();
         
