@@ -28,12 +28,11 @@
         
         function init(){
             scene = new Scene();
-            scene.setSize(629, 500)
-            road = new Sprite(scene, "road.png", 629, 1074);
+            scene.setSize(400, 700)
+            road = new Sprite(scene, "road.png", 500, 1074);
             road.setSpeed(50);
             road.setMoveAngle(0);
-            road.setPosition(314, 537);
-            output = document.getElementById("output");
+            road.setPosition(200, 350);
             car = new Car();
             var joy = Joy();
             accel = new Accel();
@@ -49,7 +48,7 @@
 
             newDX = accel.getAY();
             //newDY = accel.getAX();    
-            newDX *= -5;
+            newDX *= 5;
             //newDY *= -5;
             car.setDX(newDX);
             //car.setDY(newDY);
