@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>car</title>
+    <script type="text/javascript"
+            src = "simpleGame.js"></script>
+    
+    <script type="text/javascript">
+        var scene;
+        var car;
+        var road;
+        function Car(){ // car sprite and behavior. it should stick to the buttom and only move left and right
+            raceCar = new Sprite(scene, "redball.png", 20, 20);
+            raceCar.setSpeed(0);
+            raceCar.setPosition(315, 400);
+            return raceCar;
+        } // end Car
+        
+        function init(){
+            scene = new Scene();
+            scene.setSize(629, 500)
+            road = new Sprite(scene, "road.png", 629, 1074);
+            road.setSpeed(5);
+            road.setMoveAngle(0);
+            road.setPosition(314, 537);
+            output = document.getElementById("output");
+            car = new Car();
+            scene.start();
+        } // end init
+        
+        function update(){
+            scene.clear();
+            road.update();
+            
+            newDY = accel.getAX();
+            newDX *= -5;
+            car.setDX(newDX);
+
+
+            car.update();
+
+        } // end update
+        
+    </script>
+</head>
+<body onload = "init()">
+  
+</body>
+</html>
