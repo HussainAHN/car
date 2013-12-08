@@ -93,9 +93,9 @@
 
         function update(){
             scene.clear();
-            //road.update();
+            road.update();
             //wall.update();
-            checkKeys();
+            //checkKeys();
             enemy.wave();
             rock.update();
             
@@ -103,7 +103,7 @@
             //newDY = accel.getAX();    
             newDX *= 5;
             //newDY *= -5;
-            //car.setDX(newDX);
+            car.setDX(newDX);
             //car.setDY(newDY);
             checkCollisions();
             car.update();
