@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>Broken Brakes</title>
+    <title>car</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript"
             src = "simpleGame.js"></script>
@@ -12,28 +12,79 @@
         var scene;
         var car;
         var road;
+        var rock;
         var virtKeys = true;
         var accel;
+        var enemy;
+        var wall;
 
-
-        function Car(){ // car sprite and behavior. it should stick to the buttom and only move left and right
-            raceCar = new Sprite(scene, "redball.png", 20, 20);
+        function redCar(){ // car sprite and behavior. it should stick to the buttom and only move left and right
+            raceCar = new Sprite(scene, "redcar.png", 30, 60);
             raceCar.setSpeed(0);
             raceCar.setPosition(115, 325);
+            raceCar.setBoundAction(STOP);
+        
             return raceCar;
-
-
         
         } // end Car
         
+        
+        function Rock() {
+        rrock = new Sprite(scene, "rock.png",50,50 )
+        rrock.setSpeed(0);
+        rrock.setPosition(100, 100);
+        rrock.setSpeed(5);
+        rrock.setMoveAngle(180);
+        rrock.setBoundAction(DIE);
+            rrock.reset = function (){
+            newX = Math.random() * this.cWidth;
+            newY = Math.random() * this.cHeight;
+            this.setPosition(newX, newY);
+            
+            } // end reset
+        
+        //rock.reset();
+        return rrock;
+        }
+        
+        
+        function Wall() {
+            wwall = new Sprite(scene, "rock.png", 100,100)
+            wwall.setSpeed(0);
+            wwal.raceCar.setPosition(115, 325);
+            return wwall;
+        }
+        
+        function blueCar(){
+            bluecar = new Sprite(scene,"bluecar.png", 30,60)
+            bluecar.setSpeed(20);
+            bluecar.wave = function(){
+                newDir = (Math.floor((Math.random()*5)-5));
+                this.changeAngleBy(newDir);
+            } // end wave
+            bluecar.reset = function (){
+            newX = Math.random() * this.cWidth;
+            newY = Math.random() * this.cHeight;
+            this.setPosition(newX, newY);
+            
+            } // end reset
+            //bluecar.reset();
+            return bluecar;
+        
+        }
+        
         function init(){
             scene = new Scene();
-            scene.setSize(1000, 400)
-            road = new Sprite(scene, "road.png", 1000, 1074);
+            scene.setSize(500, 400)
+            road = new Sprite(scene, "road.png", 500, 1074);
             road.setSpeed(50);
-            road.setMoveAngle(0);
-            road.setPosition(500, 350);
-            car = new Car();
+            road.setMoveAngle(180);
+            road.setPosition(250, 200);
+
+            car = new redCar();
+            enemy = new blueCar();
+            rock =  new Rock();
+            //wall = new Wall();
             var joy = Joy();
             accel = new Accel();
             
@@ -43,38 +94,53 @@
         function update(){
             scene.clear();
             road.update();
-            //checkKeys();
+            //wall.update();
+            checkKeys();
+            enemy.wave();
+            rock.update();
             
-
             newDX = accel.getAY();
             //newDY = accel.getAX();    
             newDX *= 5;
             //newDY *= -5;
-            car.setDX(newDX);
+            //car.setDX(newDX);
             //car.setDY(newDY);
-            
+            checkCollisions();
             car.update();
-        
+            enemy.update();
+            
         } // end update
         
-            
-    function checkKeys(){
-        car.setDX(0);
-        car.setDY(0);
+        function checkCollisions(){
+                if (car.collidesWith(enemy)){
+                    alert("You LOSE!!! Restarting...");
+                    document.location.href = "";
+                    //enemy.reset();
+                } // end if
+                if (car.collidesWith(rock)){
+                    alert("You LOSE!!! Restarting...");
+                    document.location.href = "";
+                } // end if
+                
+            } // end checkCollisions
         
-        if (keysDown[K_UP]){
-            car.setDY(-5);
-        }
-        if (keysDown[K_DOWN]){
-            car.setDY(5);
-        }
-        if (keysDown[K_LEFT]){
-            car.setDX(-10);
-        }
-        if (keysDown[K_RIGHT]){
-            car.setDX(10);
-        }
-                            }
+        function checkKeys(){
+            car.setDX(0);
+            car.setDY(0);
+            
+            if (keysDown[K_UP]){
+                car.setDY(0);
+            }
+            if (keysDown[K_DOWN]){
+                car.setDY(0);
+            }
+            if (keysDown[K_LEFT]){
+                car.setDX(-10);
+            }
+            if (keysDown[K_RIGHT]){
+                car.setDX(10);
+            }
+                                }
 
             
            
