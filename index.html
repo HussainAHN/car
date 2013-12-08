@@ -17,9 +17,10 @@
         var accel;
         var enemy;
         var wall;
-        var MAXTIME = 60;
+        var MAXTIME = 30;
         var timer;
         var time;
+        var keepgoing = true;
         
         function redCar(){ // car sprite and behavior. it should stick to the buttom and only move left and right
             raceCar = new Sprite(scene, "redcar.png", 30, 60);
@@ -38,17 +39,19 @@
         rrock.setPosition(100, 100);
         rrock.setSpeed(5);
         rrock.setMoveAngle(180);
-        rrock.setBoundAction(STOP);
+        while (keepgoing)
+            {
+if (test) {
+    //code
+}
+                    }
+        //rrock.setBoundAction();
             rrock.reset = function (){
             newX = Math.random() * this.cWidth;
             newY = Math.random() * this.cHeight;
             this.setPosition(newX, newY);
             
             } // end reset
-        if (rrock.getSpeed() == 0){
-            rock.reset();
-        }
-
         return rrock;
         }
         
@@ -105,16 +108,12 @@
             enemy.wave();
             rock.update();
             
-            newDX = accel.getAY();
-            //newDY = accel.getAX();    
+            newDX = accel.getAY();    
             newDX *= 5;
-
             car.setDX(newDX);
-
             checkCollisions();
-            
             car.update();
-            enemy.update();
+            //enemy.update();
             checkTime();
         } // end update
         
