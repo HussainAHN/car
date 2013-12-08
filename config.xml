@@ -15,7 +15,7 @@
     <author href="https://build.phonegap.com" email="bu3li7@gmail.com">
         Hussain Alnemer
     </author>
-    
+    <icon src="ic_launcher.png" />
     
     <preference name="android-installLocation"    value="auto" /> 
     <preference name="orientation" value="landscape" />  
