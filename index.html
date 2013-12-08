@@ -17,11 +17,14 @@
         var accel;
         var enemy;
         var wall;
-
+        var MAXTIME = 60;
+        var timer;
+        var time;
+        
         function redCar(){ // car sprite and behavior. it should stick to the buttom and only move left and right
             raceCar = new Sprite(scene, "redcar.png", 30, 60);
             raceCar.setSpeed(0);
-            raceCar.setPosition(115, 325);
+            raceCar.setPosition(350, 200);
             raceCar.setBoundAction(STOP);
         
             return raceCar;
@@ -35,15 +38,17 @@
         rrock.setPosition(100, 100);
         rrock.setSpeed(5);
         rrock.setMoveAngle(180);
-        rrock.setBoundAction(DIE);
+        rrock.setBoundAction(STOP);
             rrock.reset = function (){
             newX = Math.random() * this.cWidth;
             newY = Math.random() * this.cHeight;
             this.setPosition(newX, newY);
             
             } // end reset
-        
-        //rock.reset();
+        if (rrock.getSpeed() == 0){
+            rock.reset();
+        }
+
         return rrock;
         }
         
@@ -58,6 +63,7 @@
         function blueCar(){
             bluecar = new Sprite(scene,"bluecar.png", 30,60)
             bluecar.setSpeed(20);
+            bluecar.setPosition(80,400);
             bluecar.wave = function(){
                 newDir = (Math.floor((Math.random()*5)-5));
                 this.changeAngleBy(newDir);
@@ -75,12 +81,12 @@
         
         function init(){
             scene = new Scene();
-            scene.setSize(500, 400)
-            road = new Sprite(scene, "road.png", 500, 1074);
+            scene.setSize(700, 400)
+            road = new Sprite(scene, "road.png", 700, 1074);
             road.setSpeed(50);
             road.setMoveAngle(180);
-            road.setPosition(250, 200);
-
+            road.setPosition(350, 200);
+            timer = new Timer();
             car = new redCar();
             enemy = new blueCar();
             rock =  new Rock();
@@ -95,34 +101,44 @@
             scene.clear();
             road.update();
             //wall.update();
-            //checkKeys();
+            checkKeys();
             enemy.wave();
             rock.update();
             
             newDX = accel.getAY();
             //newDY = accel.getAX();    
             newDX *= 5;
-            //newDY *= -5;
+
             car.setDX(newDX);
-            //car.setDY(newDY);
+
             checkCollisions();
+            
             car.update();
             enemy.update();
-            
+            checkTime();
         } // end update
         
         function checkCollisions(){
                 if (car.collidesWith(enemy)){
-                    alert("You LOSE!!! Restarting...");
+                    alert("You lost!!!");
                     document.location.href = "";
-                    //enemy.reset();
                 } // end if
                 if (car.collidesWith(rock)){
-                    alert("You LOSE!!! Restarting...");
+                   alert("You lost!!!");
                     document.location.href = "";
                 } // end if
                 
             } // end checkCollisions
+        
+         function checkTime(){
+            time = timer.getElapsedTime();
+            if (time > MAXTIME){
+                alert("you won!");
+                    document.location.href = "";
+            } // end if
+ 
+
+        } // end checkTime
         
         function checkKeys(){
             car.setDX(0);
