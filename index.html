@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
@@ -25,7 +26,7 @@
         function redCar(){ // car sprite and behavior. it should stick to the buttom and only move left and right
             raceCar = new Sprite(scene, "redcar.png", 30, 60);
             raceCar.setSpeed(0);
-            raceCar.setPosition(350, 200);
+            raceCar.setPosition(300, 150);
             raceCar.setBoundAction(STOP);
         
             return raceCar;
@@ -39,12 +40,6 @@
         rrock.setPosition(100, 100);
         rrock.setSpeed(5);
         rrock.setMoveAngle(180);
-        while (keepgoing)
-            {
-if (test) {
-    //code
-}
-                    }
         //rrock.setBoundAction();
             rrock.reset = function (){
             newX = Math.random() * this.cWidth;
@@ -84,11 +79,11 @@ if (test) {
         
         function init(){
             scene = new Scene();
-            scene.setSize(500, 400)
-            road = new Sprite(scene, "road.png", 500, 1074);
+            scene.setSize(600, 300)
+            road = new Sprite(scene, "road.png", 600, 1074);
             road.setSpeed(50);
             road.setMoveAngle(180);
-            road.setPosition(250, 200);
+            road.setPosition(300, 150);
             timer = new Timer();
             car = new redCar();
             enemy = new blueCar();
@@ -113,7 +108,7 @@ if (test) {
             car.setDX(newDX);
             checkCollisions();
             car.update();
-            //enemy.update();
+            enemy.update();
             checkTime();
         } // end update
         
